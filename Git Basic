@@ -1,0 +1,100 @@
+GIT
+
+1. Danh tính
+	$ git config --global user.name "Your name"
+	$ git config --global user.email abc@gmail.com
+
+2. Kiểm tra cấu hình
+	$ git config --list
+
+3. Tạo một kho chứa git, vào thư mục của bạn
+	$ git init
+
+ - tạo bằng cách sao chép kho chứa
+	$ git clone [url]
+ hay	$ git clone [url] [tên thư mục bạn đặt]
+
+4. Ghi lại thay đổi vào kho chứa
+ - Mỗi tập tin trong thư mục của bạn có thể ở một trong hai trạng thái : tracked hoặc untracked
+  + tập tin tracked là tập tin có mặt trong snapshot(lần commit trước), chúng có thể là modified, unmodified hoặc staged.
+  + tập tin unstracked là những tập tin không có mặt trong snapshot (lần commit trước) hoặc không có trong khu vực tổ chức (staging area)
+
+5. Kiểm tra trạng thái của tập tin
+	$ git status
+ - Nếu Unstracked files xuất hiện trong thông báo tức là các tập tin này chưa tồn tại trong snapshot (lần commit trước).
+   Git sẽ không tự động thêm nó vào lần commit tiếp theo trừ khi bạn chỉ định rĩ ràng cho nó làm như vậy.
+ - Lệnh git add sẽ bắt đầu theo dõi các tập tin trong thư mục của bạn
+	$ git add [tên file]
+
+6. Quản lý các tập tin đã thay đổi
+ - Giả sử bạn muốn tổ chức tập tin readMe.txt, bạn thêm nó vào khu vực tổ chức,
+	$ git add readMe.txt
+và như vậy là đã sẵn sàng để commit.
+   Sau đó bạn chợ nhớ ra bạn còn một vài chi tiết nhỏ cần thêm vào tập tin readMe.txt, bạn lại mở nó ra và sửa.
+   Bây giờ hãy thử chạy lệnh git status, chuyển gì xảy ra thế này??? Tập tin readMe.txt nằm ở cả hai khu vực staged và unstaged. Nếu bạn commit bây giờ
+thì phiên bản trước khi bạn mở ra sửa sẽ được commit. Vì vậy nếu như bạn sửa một tập tin sau khi chạy lệnh git add thì bạn cần chạy lại lệnh git add
+một lần nữa để đưa phiên bản mới nhất vào commit.
+
+7. Bỏ qua tập tin
+  Đưa các tập tin bạn không muốn theo dõi vào một tập tin có tên là .gitignore ,
+  ví dụ:
+  	*.[oa]    	-  yêu cầu git bỏ qua tất cả tập tin có đuôi là .o hoặc .a
+  	!lib.a    	-  mặc dù bỏ theo dõi các tập tin có đuôi a. , nhưng theo dõi tập tin lib.a
+
+8. Xem các thay đổi staged và unstaged
+  - Nếu muốn xem chính xác bạn đã thay đổi những gì nhưng chưa được staged dùng:
+	$ git diff
+   câu lệnh này so sánh những cái trong thư mục làm việc của bạn với những cái trong khu vực tổ chức
+  - Nếu muốn xem những gì bạn đã staged mà chuẩn bị được commit dùng:
+	$ git diff --staged
+
+9. "Lối tắt" cho git add và commit
+  - Chỉ cần thêm lựa chọn -a khi thực hiện commit, git sẽ tự động thêm tất cả các tập tin đã được theo dõi trước khi thực hiện commit,
+ cho phép bỏ qua git add
+	$ git commit -a -m "thông điệp commit"
+
+10. Xóa tập tin
+  - Để xóa tập tin khỏi Git cần xóa bỏ nó khỏi danh sách theo dõi sau đó commit. Nếu bạn chỉ đơn giản xóa nó khỏi thư mục làm việc thì nó
+sẽ được hiển thị là "Thay đổi không được tổ chức để commit" khi bạn chạy lệnh git status.
+Vì vậy hãy dùng lệnh :
+	$ git rm [tên file]
+
+11. Đổi tên, di chuyển tập tin
+ 	$ git mv [tên cũ] [tên mới]
+
+12. Xem lịch sử commit
+	$ git log
+ + tùy chọn hữu ích là -p, để hiển thị diff của từng commit. Bạn có thể dùng kèm theo -2 để giới hạn hiển thị 2 commit gần nhất
+	$ git log -p -2
+ + Nếu bạn muốn xem thống kê tóm tắt cho mỗi commit, bạn có thể dùng tham số --stat
+	$ git log --stat
+ + hoặc với tùy chọn --pretty và các lựa chọn oneline, full, short, fuller
+	$ git log --pretty=oneline
+ + các bạn tự tìm hiểu thêm về tùy chọn format
+
+ + giới hạn thông tin đầu ra (bạn có thể tìm hiểu thêm)
+	$ git log --since=2.weeks
+
+13. Thay đổi commit cuối cùng
+  - Ví dụ, nếu như bạn thực hiện xong commit và rồi sau đó mới nhận ra rằng đã quên tổ chức các thay đổi một tập tin. Và bạn muốn thêm 
+tập tin đó vào commit vừa rồi. 
+	$ git commit -m "thông điệp commit"
+	$ git add readMe.txt
+	$ git commit --amend 
+  + nếu bạn "git commit --amend" như trên thì vẫn chỉ là một commit và commit sau thay thế commit trước đó.
+  + nếu bạn "git commit --amend -m "new - thông điệp commit mới" thì vẫn chỉ là một commit, nhưng thông điệp của commit sau sẽ thay thế
+thông điệp commit trước 
+
+14. Loại bỏ tập tin đã tổ chức
+  - Giả sử bạn sửa nội dung của 2 tập tin và bạn muốn commit chúng thành 2 lần tách biệt nhau nhưng bạn đã vô tình sử dụng "git add -A"
+để tổ chức cả hai. Để laoji bỏ một trong hai file này khỏi khu vực tổ chức, lệnh "git status" sẽ đưa ra thông báo gợi ý lệnh cho bạn
+	$ git status
+	 ...# (use "git reset HEAD <file>" to unstage)
+	$ git reset HEAD [tên file]
+
+15. Phục hổi tập tin đã thay đổi
+  - Bạn thay đổi nội dung của một file và rồi bạn nhận ra bạn muốn phục hổi lại trạng thái giống như lúc thực hiện commit cuối cùng ( hoặc
+như khi bạn mới clone về). Lệnh "git status" sẽ đưa ra thông báo gợi ý lệnh cho bạn, nhưng hãy chú ý lệnh này là nguy hiểm vì bất cứ thay đổi gì trên tập tin này sẽ không còn nữa
+	$ git status
+	 ...# (use "git checkout --[tên file]" to discard changes in working directory)
+   ( Hãy nhớ rằng bất cứ thứ gì được commit vào Git luôn có thể phục hồi lại, bất cứ thứ gì bị mất mà chưa được commit thì không phục hồi lại được)
