@@ -1,6 +1,10 @@
-GIT
+GIT BASIC
 
-1. Danh tính
+/* author tienduongvan 5/2/2017 */
+
+=================================
+
+1. Cấu hình tài khoản
 	$ git config --global user.name "Your name"
 	$ git config --global user.email abc@gmail.com
 
