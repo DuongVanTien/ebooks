@@ -1,0 +1,7 @@
+- Chạy tay Tomcat
+ + build project thành file war (ví dụ : BTLWebDienthoai.war)
+ + copy file war đó vào thư mục webapp trong Tomcat
+ + vào thư mục bin chạy file startup.sh
+	$./startup.sh
+ + gõ trên URL : http://localhost:8080/BTLWebDienthoai
+
