@@ -1,4 +1,4 @@
-GIT BASIC
+﻿GIT BASIC
 
 /* author tienduongvan 5/2/2017 */
 
@@ -102,3 +102,32 @@ như khi bạn mới clone về). Lệnh "git status" sẽ đưa ra thông báo 
 	$ git status
 	 ...# (use "git checkout --[tên file]" to discard changes in working directory)
    ( Hãy nhớ rằng bất cứ thứ gì được commit vào Git luôn có thể phục hồi lại, bất cứ thứ gì bị mất mà chưa được commit thì không phục hồi lại được)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============
+
+ 
+- Để xóa một file ở trên repo mà không xóa nó ở local:
+	$ git rm --cached tên_file
+	$ git commit -m “delete fileX on repo”
+	$ git push ...
+
+- Để xóa một thư mục ở trên repo mà không xóa nó ở local:
+	$ git rm --cached -r tên_folder
+	$ git commit -m “delete folderX on repo”
+	$ git push ...
